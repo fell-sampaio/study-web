@@ -1,0 +1,60 @@
+<h3 class="pt-5">New Product</h3>
+<hr>
+<div class="row">
+  <div class="col-md-10">
+    <form enctype="multipart/form-data" (ngSubmit)="registerProduct()" [formGroup]="productForm">
+      <div class="alert alert-danger" *ngIf="errors.length > 0">
+        <h3 id="returnMsg">Something went wrong!</h3>
+        <ul>
+          <li *ngFor="let error of errors">{{ error }}</li>
+        </ul>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="SupplierId">Supplier</label>
+        <select class="form-select" formControlName="supplierId" required id="SupplierId" name="SupplierId">
+          <option></option>
+          <option *ngFor="let supplier of suppliers" [value]="supplier.id">{{ supplier.name }}</option>
+        </select>
+        <span class="text-danger" data-valmsg-for="SupplierId"></span>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="Name">Name</label>
+        <input formControlName="name" class="form-control" type="text" id="Name" maxlength="200" name="Name" required>
+        <span class="text-danger" data-valmsg-for="Name"></span>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="Description">Description</label>
+        <textarea formControlName="description" cols="40" rows="5" class="form-control" id="Description" maxlength="1000" name="Description" required></textarea>
+        <span class="text-danger" data-valmsg-for="Description"></span>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="ImageUpload">Product Image</label>
+        <div class="custom-file">
+          <input accept="image/jpeg" #fileInput (change)="upload(fileInput.files)" formControlName="imageUpload" type="file" class="form-control" id="ImageUpload" required>
+          <label class="custom-file-label" for="ImageUpload">{{ imageName || 'Select an image' }}</label>
+        </div>
+        <span class="text-danger" data-valmsg-for="ImageUpload"></span>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="Value">Value</label>
+        <input formControlName="value" class="form-control" type="text" id="Value" name="Value" value="0,00" required>
+        <span class="text-danger" data-valmsg-for="Value"></span>
+      </div>
+
+      <div class="mb-3 form-check">
+        <input formControlName="active" class="form-check-input" type="checkbox" id="Active" name="Active" value="true">
+        <label class="form-check-label" for="Active">Active?</label>
+      </div>
+
+      <div class="mb-3">
+        <input type="submit" value="Register" class="btn btn-primary">
+        <a class="btn btn-info" [routerLink]="['/products-list']">Back</a>
+      </div>
+    </form>
+  </div>
+</div>
