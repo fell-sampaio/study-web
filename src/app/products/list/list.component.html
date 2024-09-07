@@ -17,34 +17,36 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of products">
-        <td>
-          <img src="assets/{{ product.image }}" title="{{ product.name }}" alt="{{ product.image }}" style="width: 70px; height: 100px">
-        </td>
-        <td>
-          {{ product.name }}
-        </td>
-        <td>
-          {{ product.supplierName }}
-        </td>
-        <td>
-          {{ product.value | currency: 'BRL' : 'symbol' : '1.2-2' }}
-        </td>
-        <td>
-          <input class="form-check-input" [checked]="product.active === true" type="checkbox" disabled>
-        </td>
-        <td class="text-end">
-          <a class="btn btn-warning" href="#">
-            <i class="fas fa-search"></i>
-          </a>
-          <a class="btn btn-info" href="#">
-            <i class="fas fa-pencil-alt"></i>
-          </a>
-          <a class="btn btn-danger" href="#">
-            <i class="fas fa-trash"></i>
-          </a>
-        </td>
-      </tr>
+      @for (product of products; track $index) {
+        <tr>
+          <td>
+            <img src="assets/{{ product.image }}" title="{{ product.name }}" alt="{{ product.image }}" style="width: 70px; height: 100px">
+          </td>
+          <td>
+            {{ product.name }}
+          </td>
+          <td>
+            {{ product.supplierName }}
+          </td>
+          <td>
+            {{ product.value | currency: 'BRL' : 'symbol' : '1.2-2' }}
+          </td>
+          <td>
+            <input class="form-check-input" [checked]="product.active === true" type="checkbox" disabled>
+          </td>
+          <td class="text-end">
+            <a class="btn btn-warning" href="#">
+              <i class="fas fa-search"></i>
+            </a>
+            <a class="btn btn-info" href="#">
+              <i class="fas fa-pencil-alt"></i>
+            </a>
+            <a class="btn btn-danger" href="#">
+              <i class="fas fa-trash"></i>
+            </a>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
   </main>
