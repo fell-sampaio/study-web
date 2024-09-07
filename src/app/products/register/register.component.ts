@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
 
 import { Product } from '../models/Product';
 import { ProductForm } from '../models/ProductForm';
 import { Supplier } from '../models/Supplier';
 import { ProductService } from '../services/product.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -33,6 +34,12 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private productService: ProductService,
   ) {
+    this.productService.getSuppliers()
+    .pipe(takeUntilDestroyed())
+    .subscribe({
+      next: (suppliers: Supplier[]) => this.suppliers = suppliers,
+      error: (error) => this.errors = error.error.errors
+    });
     this.imageForm = new FormData();
   }
 
