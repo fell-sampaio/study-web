@@ -65,10 +65,10 @@ export class RegisterComponent implements OnInit {
       let productForm = Object.assign({}, this.product, this.productForm.value);
       productForm.active = this.productForm.controls.active.value
 
-      this.handleProduct(productForm).subscribe(
-        result => { this.onSaveComplete(result) },
-        fail => { this.onError(fail) }
-      );
+      this.handleAlternativeProduct(productForm).subscribe({
+        next: (result) => this.onSaveComplete(result),
+        error: (error) => this.onError(error)
+      });
     }
   }
 
